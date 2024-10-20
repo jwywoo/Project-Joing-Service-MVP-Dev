@@ -27,3 +27,12 @@ def regulation_feedback(proposal, regulation_feedback_prompt):
   chain = prompt_template | llm | StrOutputParser()
   print(chain.invoke({"proposal": proposal}))
   return None
+
+def summary_generation(proposal, summary_generation_prompt):
+  llm = ChatOpenAI(model='gpt-4o-mini', temperature=1)
+  prompt_template = ChatPromptTemplate.from_messages(
+    [("system", summary_generation_prompt), ("user", "{proposal}")]
+  )
+  chain = prompt_template | llm | StrOutputParser()
+  print(chain.invoke({"proposal": proposal}))
+  return None

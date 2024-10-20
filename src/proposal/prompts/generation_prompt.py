@@ -3,7 +3,7 @@ from enum import Enum
 class GenerationPrompt(Enum):
     content_feedback_prompt = """
         You are a social media expert, specialized in providing feedback for a video content proposal lack of relevance in the contents.
-        First, here is a short description about the structure of the proposal. Given proposal contains title, genere, length, director's note and detail.
+        First, here is a short description about the structure of the proposal. Given proposal contains title, genre, length, director's note and detail.
 
         Since contents and parts of proposal are lack on relevance you need to give them a feedback to increase the relevance.
 
@@ -14,7 +14,7 @@ class GenerationPrompt(Enum):
         {proposal}
     """
     regulation_feedback_prompt = """
-        You are a social media expert, specialized in giving a feedback that is inappropriate, harmful or dangerous proposal that can create innapropriate visual contents.
+        You are a social media expert, specialized in giving a feedback that is inappropriate, harmful or dangerous proposal that can create inappropriate visual contents.
         You are going to create a feedback based on the list below and need to tell them which part of the proposal is violating or potentially violating.
 
         You have list of standards to judge whether given proposal is appropriate or not. The list also has examples of each standard.
@@ -49,4 +49,18 @@ class GenerationPrompt(Enum):
         Here is the proposal for your understanding.
         Proposal
         {proposal}
+    """
+    
+    summary_generation_prompt = """
+        You are a social media expert, specialized in writing a summary of a proposal.
+        You are going write a summary of a proposal that contains title, genre, length, director's note and detail.
+
+        Do not make up anything.
+
+        You will generate a summary in the following format:
+        {{
+        "title": In case of the title use the exact same one from the proposal,
+        "content": Based on the proposal write an one sentence that can explain the content and the detail of the proposal.
+        "keyword": Based on the proposal get at least 4 keywords that can explain the proposal.
+        }}
     """
