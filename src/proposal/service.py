@@ -1,5 +1,5 @@
 from proposal.methods.evaluation_methods import volume_evaluation, content_evaluation, regulation_evaluation
-from proposal.methods.generation_methods import volume_feedback, content_feedback, regulation_feedback
+from proposal.methods.generation_methods import volume_feedback, content_feedback, regulation_feedback, summary_generation
 
 from proposal.prompts.generation_prompt import GenerationPrompt
 from proposal.prompts.evaluation_prompt import EvaluationPrompt
@@ -23,9 +23,10 @@ def proposal_evaluation(request: ProposalEvaluationRequestDto):
     regulation_evaluation_prompt = evaluation_prompt.regulation_evaluation_prompt.value
     
     ## for feedback generation
-    feedback_prompt = GenerationPrompt
-    content_feedback_prompt = feedback_prompt.content_feedback_prompt.value
-    regulation_feedback_prompt = feedback_prompt.regulation_feedback_prompt.value
+    generation_prompt = GenerationPrompt
+    content_feedback_prompt = generation_prompt.content_feedback_prompt.value
+    regulation_feedback_prompt = generation_prompt.regulation_feedback_prompt.value
+    summary_generation_prompt = generation_prompt.summary_generation_prompt.value
     
     # Volume Check
     volume_evaluation(proposal)
@@ -39,4 +40,6 @@ def proposal_evaluation(request: ProposalEvaluationRequestDto):
     # Regulation Check
     if (regulation_evaluation(proposal, regulation_evaluation_prompt)):
         regulation_feedback(proposal=proposal, regulation_feedback_prompt=regulation_feedback_prompt)
+        
+    summary_generation(proposal=proposal, summary_generation_prompt=summary_generation_prompt)
     return {"Message": "Proposal Evaluation Done"}

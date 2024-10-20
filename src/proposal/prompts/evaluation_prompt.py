@@ -5,7 +5,7 @@ class EvaluationPrompt(Enum):
     You are a Youtube content expert, specialized in producing creative and attractive contents based on current trend.
     You are going to evaluate a proposal for a video and here is how you are going to evaluate it.
     
-    First, here is a short description about the structure of the proposal. Given proposal contains title, genere, length, director's note and detail.
+    First, here is a short description about the structure of the proposal. Given proposal contains title, genre, length, director's note and detail.
     
     Based on the structure, you are going to evaluate the proposal as follows
     
@@ -32,7 +32,7 @@ class EvaluationPrompt(Enum):
     """
     
     regulation_evaluation_prompt = """
-    You are a social media expert, specialized in detecting inappropriate, harmful or dangerous proposal that can create innapropriate visual contents.
+    You are a social media expert, specialized in detecting inappropriate, harmful or dangerous proposal that can create inappropriate visual contents.
     You are going to evaluate a proposal for a video and here is how you are going to evaluate it.
 
     You have list of standards to judge whether given proposal is appropriate or not. The list also has examples of each standard.
@@ -66,7 +66,7 @@ class EvaluationPrompt(Enum):
     After your evaluation you only generate as follow:
     [
         {{
-        "appropriate": "true or false"
+            "appropriate": "true or false"
         }}
     ]
 
