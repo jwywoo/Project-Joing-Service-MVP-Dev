@@ -1,6 +1,10 @@
 from proposal.methods.evaluation_methods import volume_evaluation, content_evaluation, regulation_evaluation
+from proposal.methods.generation_methods import volume_feedback, content_feedback, regulation_feedback
+
+from proposal.prompts.generation_prompt import GenerationPrompt
+from proposal.prompts.evaluation_prompt import EvaluationPrompt
+
 from proposal.schemas import ProposalEvaluationRequestDto
-from .prompts.evaluation_prompt import EvaluationPrompt
 
 SEP = "[SEP]"
 
@@ -12,17 +16,27 @@ def proposal_evaluation(request: ProposalEvaluationRequestDto):
             + str(request.proposal_score) + SEP \
             + str(request.additional_features)
     
-    # Prompts for evaluation
+    # Prompts 
+    ## for evaluation
     evaluation_prompt = EvaluationPrompt
     content_evaluation_prompt = evaluation_prompt.content_evaluation_prompt.value
     regulation_evaluation_prompt = evaluation_prompt.regulation_evaluation_prompt.value
     
+    ## for feedback generation
+    feedback_prompt = GenerationPrompt
+    content_feedback_prompt = feedback_prompt.content_feedback_prompt.value
+    regulation_feedback_prompt = feedback_prompt.regulation_feedback_prompt.value
+    
     # Volume Check
     volume_evaluation(proposal)
+    if (volume_evaluation(proposal=proposal)):
+        volume_feedback()
     
     # Content Check
-    content_evaluation(proposal, content_evaluation_prompt)
+    if (content_evaluation(proposal, content_evaluation_prompt)):
+        content_feedback(proposal=proposal, content_feedback_prompt=content_feedback_prompt)
     
     # Regulation Check
-    regulation_evaluation(proposal, regulation_evaluation_prompt)
-    return {"Message": "Proposal Evaluation"}
+    if (regulation_evaluation(proposal, regulation_evaluation_prompt)):
+        regulation_feedback(proposal=proposal, regulation_feedback_prompt=regulation_feedback_prompt)
+    return {"Message": "Proposal Evaluation Done"}
