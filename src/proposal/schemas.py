@@ -1,26 +1,31 @@
 from pydantic import BaseModel
+# Proposal
 class ProposalEvaluationRequestDto(BaseModel):
     title: str
     content: str
     media_type: str
-    proposal_score: int
+    proposal_score: float
     additional_features: dict
-
-class ProposalEvaluationResponseDto(BaseModel):
-    feedback_type: int
-    feedback: str
-    current_proposal_score: int
-    regulation_category: list
     
+class FeedbackDto(BaseModel):
+    feedback_type : int
+    current_score : float
+    comment : str
+    violations : list
+    
+class SummaryDto(BaseModel):
+    title : str
+    content : str
+    keyword : list
+class ProposalEvaluationResponseDto(BaseModel):
+    evaluation_result : int
+    feedback : FeedbackDto
+    summary : SummaryDto
+
+# Summary
 class SummaryGenerationRequestDto(BaseModel):
     title: str
     content: str
     media_type: str
     proposal_score: int
     additional_features: dict
-    
-class SummaryGenerationResponseDto(BaseModel):
-    status: bool
-    title: str
-    content: str
-    keyword: list
