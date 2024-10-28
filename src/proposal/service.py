@@ -4,7 +4,7 @@ from proposal.methods.generation_methods import volume_feedback, content_feedbac
 from proposal.prompts.generation_prompt import GenerationPrompt
 from proposal.prompts.evaluation_prompt import EvaluationPrompt
 
-from proposal.schemas import ProposalEvaluationRequestDto, SummaryGenerationRequestDto
+from proposal.schemas import ProposalEvaluationRequestDto, ProposalEvaluationResponseDto, SummaryGenerationRequestDto
 
 SEP = "[SEP]"
 
@@ -29,13 +29,17 @@ def proposal_evaluation(request: ProposalEvaluationRequestDto):
     regulation_feedback_prompt = generation_prompt.regulation_feedback_prompt.value
     
     # Volume Check
-    volume_evaluation(proposal)
-    if (volume_evaluation(proposal=proposal)):
-        volume_feedback()
+    # volume_evaluation(proposal)
+    # if (volume_evaluation(proposal=proposal)):
+    #     return volume_feedback()
     
     # Content Check
-    if (content_evaluation(proposal, content_evaluation_prompt)):
-        content_feedback(proposal=proposal, content_feedback_prompt=content_feedback_prompt)
+    content_evaluation_result = content_evaluation(proposal, content_evaluation_prompt)
+    print(content_evaluation_result)
+    total_score = float(content_evaluation_result['message']) + float(content_evaluation_result['target']) + float(content_evaluation_result['relevance'])
+    evaluated_proposal = "Message: " + content_evaluation_result['message'] + "Target: " + content_evaluation_result['target'] + "Relevance: " + content_evaluation_result['relevance'] + SEP + proposal 
+    if (total_score < 6.0):
+        print(content_feedback(content_feedback_prompt=content_feedback_prompt, proposal=evaluated_proposal))
     
     # Regulation Check
     if (regulation_evaluation(proposal, regulation_evaluation_prompt)):

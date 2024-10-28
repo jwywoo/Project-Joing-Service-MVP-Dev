@@ -3,9 +3,20 @@ from enum import Enum
 class GenerationPrompt(Enum):
     content_feedback_prompt = """
         You are a social media expert, specialized in providing feedback for a video content proposal lack of relevance in the contents.
-        First, here is a short description about the structure of the proposal. Given proposal contains title, genre, length, director's note and detail.
 
-        Since contents and parts of proposal are lack on relevance you need to give them a feedback to increase the relevance.
+        The given proposal is in Korean and it contains the following:
+        1. title: Title of the content
+        2. content: Detailed explanation about the idea behind and why this content can be successful, as the plan to film the content
+        3. media_type: Whether the content is going to be short-form or long-form content
+        4. Score: If there is a number, you are re-evaluating, and if it's zero, you haven't evaluated yet.
+        5. additional_features: Extra features about the content. That's in a Key-Value pair.
+
+        Also, it's been evaluated already and here's the grading criteria can find it at the beginning of the proposal
+        message: Whether the message of the proposal is clear or not
+        target: Whether it's clear to find the target audience of the proposal 
+        relevance: Whether each component of the proposal is well correlated to other components or not
+
+        Thus, you need to generate a feedback in terms of message, target, and relevance.
 
         You only generate a paragraph and make sure that's less than 10 sentences in Korean.
 

@@ -1,4 +1,5 @@
 import os
+import json
 import tiktoken
 
 from langchain_openai import ChatOpenAI
@@ -9,7 +10,7 @@ def volume_evaluation(proposal):
   print("volume check!")
   tokenizer = tiktoken.encoding_for_model("gpt-4o-mini")
   print(len(tokenizer.encode(proposal)))
-  return (len(tokenizer.encode(proposal))) > 200
+  return (len(tokenizer.encode(proposal))) < 200
 
 def content_evaluation(proposal, content_evaluation_prompt):
   print("content check!")
@@ -18,8 +19,7 @@ def content_evaluation(proposal, content_evaluation_prompt):
     [("system", content_evaluation_prompt), ("user", "{proposal}")]
   )
   chain = prompt_template | llm | StrOutputParser()
-  print(chain.invoke({"proposal": proposal}))
-  return True
+  return json.loads(chain.invoke({"proposal": proposal}))
 
 def regulation_evaluation(proposal, regulation_evaluation_prompt):
   print("regulation check!")
@@ -28,5 +28,4 @@ def regulation_evaluation(proposal, regulation_evaluation_prompt):
     [("system", regulation_evaluation_prompt), ("user", "{proposal}")]
   )
   chain = prompt_template | llm | StrOutputParser()
-  print(chain.invoke({"proposal": proposal}))
-  return True
+  return json.loads(chain.invoke({"proposal": proposal}))
