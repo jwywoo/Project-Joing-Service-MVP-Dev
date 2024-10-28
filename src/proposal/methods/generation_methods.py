@@ -32,8 +32,7 @@ def regulation_feedback(proposal, regulation_feedback_prompt):
     [("system", regulation_feedback_prompt), ("user", PROPOSAL)]
   )
   chain = prompt_template | llm | StrOutputParser()
-  print(chain.invoke({"proposal": proposal}))
-  return None
+  return chain.invoke({"proposal": proposal})
 
 def summary_generator(proposal, summary_generation_prompt):
   llm = ChatOpenAI(model='gpt-4o-mini', temperature=1)

@@ -15,7 +15,7 @@ def proposal_evaluation(request: ProposalEvaluationRequestDto):
             + request.media_type + SEP \
             + str(request.proposal_score) + SEP \
             + str(request.additional_features)
-    
+    proposal = proposal.replace("\n", "")
     # Prompts 
     ## for evaluation
     evaluation_prompt = EvaluationPrompt
@@ -23,8 +23,8 @@ def proposal_evaluation(request: ProposalEvaluationRequestDto):
     regulation_evaluation_prompt = evaluation_prompt.regulation_evaluation_prompt.value
     
     ## for feedback generation
-    # summary_generation_prompt = generation_prompt.summary_generation_prompt.value
     generation_prompt = GenerationPrompt
+    summary_generation_prompt = generation_prompt.summary_generation_prompt.value
     content_feedback_prompt = generation_prompt.content_feedback_prompt.value
     regulation_feedback_prompt = generation_prompt.regulation_feedback_prompt.value
     
@@ -42,11 +42,16 @@ def proposal_evaluation(request: ProposalEvaluationRequestDto):
         print(content_feedback(content_feedback_prompt=content_feedback_prompt, proposal=evaluated_proposal))
     
     # Regulation Check
-    if (regulation_evaluation(proposal, regulation_evaluation_prompt)):
-        regulation_feedback(proposal=proposal, regulation_feedback_prompt=regulation_feedback_prompt)
+    regulation_evaluation_result = regulation_evaluation(proposal=proposal, regulation_evaluation_prompt=regulation_evaluation_prompt)
+    appropriate = bool(regulation_evaluation_result['appropriate'])
+    violated_categories = list(regulation_evaluation_result['category'])
+    if (not appropriate):
+        print("Violation Detected")
+        violated_proposal = "Violated Categories: " + str(violated_categories) + SEP + proposal
+        print(regulation_feedback(regulation_feedback_prompt=regulation_feedback_prompt, proposal=violated_proposal))
         
     # Summary Generator
-    # summary_generator(proposal=proposal, summary_generation_prompt=summary_generation_prompt)        
+    print(summary_generator(proposal=proposal, summary_generation_prompt=summary_generation_prompt))
     
     return {"Message": "Proposal Evaluation Done"}
 
