@@ -4,4 +4,5 @@ class ProfileEvaluationRequestDto(BaseModel):
     url:str
 
 class ProfileEvaluationResponseDto(BaseModel):
-    url:str
+    evaluation_status : bool
+    reason : str

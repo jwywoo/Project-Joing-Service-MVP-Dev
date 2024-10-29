@@ -27,5 +27,5 @@ class SummaryGenerationRequestDto(BaseModel):
     title: str
     content: str
     media_type: str
-    proposal_score: int
+    proposal_score: float
     additional_features: dict
