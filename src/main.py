@@ -8,7 +8,6 @@ from fastapi import FastAPI
 from proposal.router import router as proposal_router
 from profile.router import router as profile_router
 
-
 # config
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
