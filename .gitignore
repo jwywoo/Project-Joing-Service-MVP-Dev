@@ -6,6 +6,7 @@
 ### virtual env##
 .rag_api_venv
 .*_venv
+model
 
 ### Indices ###
 *.faiss

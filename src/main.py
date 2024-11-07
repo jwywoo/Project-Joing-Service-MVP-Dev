@@ -8,6 +8,7 @@ from fastapi.responses import JSONResponse
 # Routers
 from proposal.router import router as proposal_router
 from profile.router import router as profile_router
+from rec_system.router import router as rec_router
 
 # config
 load_dotenv()
@@ -17,6 +18,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 app = FastAPI()
 app.include_router(profile_router)
 app.include_router(proposal_router)
+app.include_router(rec_router)
 
 @app.get("/")
 def root():
