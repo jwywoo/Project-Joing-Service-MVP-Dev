@@ -1,8 +1,10 @@
 from pydantic import BaseModel
 
+
 class ProfileEvaluationRequestDto(BaseModel):
-    url:str
+    channel_id: str
+
 
 class ProfileEvaluationResponseDto(BaseModel):
-    evaluation_status : bool
-    reason : str
+    evaluation_status: bool
+    reason: str
