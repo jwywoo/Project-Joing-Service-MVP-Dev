@@ -1,7 +1,7 @@
 import requests
 import googleapiclient.discovery
 
-def youtube_data_api_connection(api_key):
+def youtube_data_api_request(api_key):
     youtube_data_api = googleapiclient.discovery.build(
         'youtube', 'v3', developerKey=api_key)
     return youtube_data_api
@@ -12,7 +12,7 @@ def youtube_channel_request(youtube_data_api, channel_id):
         part='contentDetails',
         id=channel_id
     ).execute()
-    return youtube_data_api, channel_response
+    return channel_response
 
 
 def playlist__request(youtube_data_api, youtube_channel):
