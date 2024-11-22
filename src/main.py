@@ -20,16 +20,19 @@ app.include_router(profile_router)
 app.include_router(proposal_router)
 app.include_router(rec_router)
 
+
 @app.get("/")
 def root():
     return {"message": "Welcome to Project Joing AI Api Server!"}
+
 
 @app.get("/ready")
 def health_check():
     return JSONResponse(
         status_code=200, content=None
     )
-    
+
+
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
     return JSONResponse(

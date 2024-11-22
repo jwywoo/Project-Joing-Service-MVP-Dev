@@ -1,6 +1,7 @@
 import requests
 import googleapiclient.discovery
 
+
 def youtube_data_api_request(api_key):
     youtube_data_api = googleapiclient.discovery.build(
         'youtube', 'v3', developerKey=api_key)
@@ -24,6 +25,7 @@ def playlist__request(youtube_data_api, youtube_channel):
         pageToken=None
     ).execute()
     return playlist_response
+
 
 def image_request(image_urls):
     image_responses = []
