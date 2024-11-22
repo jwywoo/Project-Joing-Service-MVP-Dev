@@ -27,17 +27,18 @@ def profile_evaluation(request: ProfileEvaluationRequestDto):
     # Parsing response aka preprocessing
     videos_text_info, thumbnail_urls = response_preprocessing(
         playlist_response=playlist_response)
-    
+
     evaluation_prompt = EvaluationPrompt
-    
+
     # Image Evaluation
     # Image request & preprocessing
     image_response = image_request(thumbnail_urls)
     combined_image = image_preprocessing(image_response)
-    
+
     image_evaluation_prompt = evaluation_prompt.image_evaluation_prompt.value
-    try:    
-        image_evaluation_result = image_evaluation(combined_image, image_evaluation_prompt)
+    try:
+        image_evaluation_result = image_evaluation(
+            combined_image, image_evaluation_prompt)
         if (not image_evaluation_result['appropriate'] and len(image_evaluation_result['reason']) != 0):
             return ProfileEvaluationResponseDto(
                 evaluation_status=False,

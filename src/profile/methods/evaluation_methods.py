@@ -5,8 +5,6 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from openai import OpenAI
 
-from profile.methods.screenshot_methods import selenium_screenshot
-
 
 def text_evaluation(description, prompt):
     llm = ChatOpenAI(model='gpt-4o-mini', temperature=0.7)
