@@ -7,7 +7,7 @@ from fastapi.responses import JSONResponse
 
 # Routers
 from proposal.router import router as proposal_router
-from channel.router import router as profile_router
+from channel.router import router as channel_router
 from rec_system.router import router as rec_router
 
 # config
@@ -16,7 +16,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # router
 app = FastAPI()
-app.include_router(profile_router)
+app.include_router(channel_router)
 app.include_router(proposal_router)
 app.include_router(rec_router)
 

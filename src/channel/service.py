@@ -1,7 +1,7 @@
 import os
 
 from dotenv import load_dotenv
-from channel.schemas import ProfileEvaluationRequestDto, ProfileEvaluationResponseDto
+from channel.schemas import ChannelEvaluationRequestDto, ChannelEvaluationResponseDto
 from channel.methods.requests_methods import youtube_data_api_request, youtube_channel_request, playlist__request, image_request
 from channel.methods.preprocessing_methods import response_preprocessing, image_preprocessing
 from channel.methods.evaluation_methods import text_evaluation, image_evaluation
@@ -10,7 +10,7 @@ load_dotenv()
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
 
 
-def profile_evaluation(request: ProfileEvaluationRequestDto):
+def channel_evaluation(request: ChannelEvaluationRequestDto):
     # Getting Youtube Data API Object
     youtube_data_api = youtube_data_api_request(api_key=YOUTUBE_API_KEY)
 
@@ -40,7 +40,7 @@ def profile_evaluation(request: ProfileEvaluationRequestDto):
         image_evaluation_result = image_evaluation(
             combined_image, image_evaluation_prompt)
         if (not image_evaluation_result['appropriate'] and len(image_evaluation_result['reason']) != 0):
-            return ProfileEvaluationResponseDto(
+            return ChannelEvaluationResponseDto(
                 evaluation_status=False,
                 reason=image_evaluation_result['reason']
             )
@@ -51,7 +51,7 @@ def profile_evaluation(request: ProfileEvaluationRequestDto):
     text_evaluation_prompt = evaluation_prompt.text_evaluation_prompt.value
     text_evaluation_result = text_evaluation(
         description=videos_text_info, prompt=text_evaluation_prompt)
-    return ProfileEvaluationResponseDto(
+    return ChannelEvaluationResponseDto(
         evaluation_status=text_evaluation_result['appropriate'],
         reason=text_evaluation_result['reason']
     )

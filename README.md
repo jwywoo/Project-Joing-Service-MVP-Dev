@@ -5,7 +5,7 @@
 ```bash
 Project Joing Servic
 src/
-├── profile/
+├── channel/
 │   ├── methods/
 │   │   ├── evaluation_methods.py
 │   │   └── screenshot_methods.py

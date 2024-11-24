@@ -1,10 +1,10 @@
 from pydantic import BaseModel
 
 
-class ProfileEvaluationRequestDto(BaseModel):
+class ChannelEvaluationRequestDto(BaseModel):
     channel_id: str
 
 
-class ProfileEvaluationResponseDto(BaseModel):
+class ChannelEvaluationResponseDto(BaseModel):
     evaluation_status: bool
     reason: str
