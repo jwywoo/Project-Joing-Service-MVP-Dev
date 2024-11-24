@@ -7,7 +7,7 @@ from fastapi.responses import JSONResponse
 
 # Routers
 from proposal.router import router as proposal_router
-from profile.router import router as profile_router
+from channel.router import router as profile_router
 from rec_system.router import router as rec_router
 
 # config

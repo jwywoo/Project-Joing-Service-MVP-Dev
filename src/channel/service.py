@@ -1,11 +1,11 @@
 import os
 
 from dotenv import load_dotenv
-from profile.schemas import ProfileEvaluationRequestDto, ProfileEvaluationResponseDto
-from profile.methods.requests_methods import youtube_data_api_request, youtube_channel_request, playlist__request, image_request
-from profile.methods.preprocessing_methods import response_preprocessing, image_preprocessing
-from profile.methods.evaluation_methods import text_evaluation, image_evaluation
-from profile.prompts.evaluation_prompt import EvaluationPrompt
+from channel.schemas import ProfileEvaluationRequestDto, ProfileEvaluationResponseDto
+from channel.methods.requests_methods import youtube_data_api_request, youtube_channel_request, playlist__request, image_request
+from channel.methods.preprocessing_methods import response_preprocessing, image_preprocessing
+from channel.methods.evaluation_methods import text_evaluation, image_evaluation
+from channel.prompts.evaluation_prompt import EvaluationPrompt
 load_dotenv()
 YOUTUBE_API_KEY = os.getenv("YOUTUBE_API_KEY")
 

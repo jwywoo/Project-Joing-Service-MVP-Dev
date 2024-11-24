@@ -1,8 +1,8 @@
 from pydantic import BaseModel
+from typing import List
 
 
 class CreatorRecommendRequest(BaseModel):
-    user_id: int
     channel_name: str
     channel_category: str
     subscribers: int
@@ -14,23 +14,33 @@ class CreatorRecommendRequest(BaseModel):
 
 
 class ItemRecommendRequest(BaseModel):
-    item_id: int
     title: str
     item_category: str
     media_type: str
     score: int
+    item_content: str
 
-
-class CreatorRecommendResponse(BaseModel):
-    user_id: int
-    channel_name: str
+# 응답(Response) 모델
+class RecommendCreator(BaseModel):
+    creator_id: int
     channel_category: str
+    channel_name: str
     subscribers: int
 
 
-class ItemRecommendResponse(BaseModel):
+class RecommendItem(BaseModel):
     item_id: int
     title: str
     item_category: str
     media_type: str
     score: int
+    item_content: str
+
+# item -> creator 추천
+class CreatorRecommendResponse(BaseModel):
+    recommended_creators: List[RecommendCreator]
+
+
+# creator -> item 추천
+class ItemRecommendResponse(BaseModel):
+    recommended_items: List[RecommendItem]
