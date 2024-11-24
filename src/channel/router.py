@@ -1,11 +1,11 @@
 from fastapi import APIRouter
 
-from channel.schemas import ProfileEvaluationRequestDto, ProfileEvaluationResponseDto
-from channel.service import profile_evaluation
+from channel.schemas import ChannelEvaluationRequestDto
+from channel.service import channel_evaluation
 
 router = APIRouter()
 
 
-@router.post("/ai/profile/evaluation")
-def profile_evaluation_router(request: ProfileEvaluationRequestDto):
-    return profile_evaluation(request)
+@router.post("/ai/channel/evaluation")
+def channel_evaluation_router(request: ChannelEvaluationRequestDto):
+    return channel_evaluation(request)
