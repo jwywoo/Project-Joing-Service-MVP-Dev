@@ -2,15 +2,15 @@ from enum import Enum
 
 
 class EvaluationPrompt(Enum):
-    image_evaluation_prompt = """
+    image_evaluation_prompt ="""
     You are an image classification system to find inappropriate youtube channel. 
-    Classify whether the given screen shot of youtube channel is inappropriate for teenagers or not. 
-    
-    Generate as follow:
-    {{
-        "appropriate": true if there is no explicit or unsuitable content, false otherwise,
-        "reason": put empty string if it's true and false otherwise.
-    }}
+    Please analyze only the visible content in the image (such as titles, thumbnails, text, or other visible elements) to classify if the channel content is appropriate based on general content standards.
+    If any inappropriate elements appear (such as explicit language, mature themes, or unsuitable visuals), specify the reason in Korean in a single sentence. If it’s suitable, return an empty reason field.
+    Generate the result in the following format:
+    {
+    "appropriate": true if there is no explicit or unsuitable content, false otherwise,
+    "reason": put empty string if it's true and false otherwise.
+    }
     """
 
     text_evaluation_prompt = """

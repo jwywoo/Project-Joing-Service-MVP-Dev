@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
+from pydantic import ValidationError
+
 # Routers
 from proposal.router import router as proposal_router
 from channel.router import router as channel_router

@@ -24,15 +24,7 @@ def image_evaluation(base64_image, prompt):
             "role": "user",
             "content": [
                 {
-                    "type": "text", "text": """"You are provided with a screenshot of a YouTube channel page. 
-                    Please analyze only the visible content in the image (such as titles, thumbnails, text, or other visible elements) to classify if the channel content is appropriate based on general content standards.
-                    If any inappropriate elements appear (such as explicit language, mature themes, or unsuitable visuals), specify the reason in Korean in a single sentence. If it’s suitable, return an empty reason field.
-                    Generate the result in the following format:
-                        {
-                            "appropriate": true if there is no explicit or unsuitable content, false otherwise,
-                            "reason": put empty string if it's true and false otherwise.
-                        }
-                        """
+                    "type": "text", "text": """This is an image that has 4 recent thumbnail of different videos posted by a Youtuber."""
                 },
                 {
                     "type": "image_url",
