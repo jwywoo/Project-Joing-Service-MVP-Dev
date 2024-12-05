@@ -15,6 +15,13 @@ def youtube_channel_request(youtube_data_api, channel_id):
         part='contentDetails',
         id=channel_id
     ).execute()
+    if (channel_response['pageInfo']['totalResults'] == 0):
+        raise HTTPException(
+            status_code=400,
+            detail={
+                "유효하지 않은 채널아이디입니다."
+            }
+        )
     return channel_response
 
 
