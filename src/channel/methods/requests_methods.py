@@ -28,7 +28,7 @@ def playlist_request(youtube_data_api, youtube_channel):
         maxResults=4,
         pageToken=None
     ).execute()
-    print(len(playlist_response['items']))
+    
     if (len(playlist_response['items']) < 4):
         raise HTTPException(status_code=422, detail="영상의 개수가 충분하지 않아 더이상의 평가가 불가능합니다.")
     return playlist_response

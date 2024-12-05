@@ -9,7 +9,7 @@ from proposal.schemas import ProposalEvaluationRequestDto, ProposalEvaluationRes
 SEP = "[SEP]"
 
 
-def proposal_evaluation(request: ProposalEvaluationRequestDto):
+def proposal_evaluation(request: ProposalEvaluationRequestDto) -> ProposalEvaluationResponseDto:
     # Proposal from the user
     proposal = request.title + SEP \
         + request.content + SEP \
@@ -37,7 +37,7 @@ def proposal_evaluation(request: ProposalEvaluationRequestDto):
             feedback=FeedbackDto(
                 feedback_type=0,
                 current_score=0,
-                comment="마! 기획이 장난이가! \n 양이 이게 뭐꼬? \n 좀 더 채워와라 임마!",
+                comment="기획안을 평가할 내용이 부족하여 더 이상의 평가가 불가능합니다.",
                 violations=[]
             ),
             summary=SummaryDto(
@@ -137,7 +137,7 @@ def proposal_evaluation(request: ProposalEvaluationRequestDto):
     )
 
 
-def summary_generation(request: SummaryGenerationRequestDto):
+def summary_generation(request: SummaryGenerationRequestDto) -> SummaryDto:
     # Proposal retrieved from db
     proposal = request.title + SEP \
         + request.content + SEP \

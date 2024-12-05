@@ -10,7 +10,6 @@ from langchain_core.output_parsers import StrOutputParser
 ## Got to be more than 200 hundreds tokens
 def volume_evaluation(proposal):
     tokenizer = tiktoken.encoding_for_model("gpt-4o-mini")
-    print(len(tokenizer.encode(proposal)))
     return (len(tokenizer.encode(proposal))) < 200
 
 # Content
